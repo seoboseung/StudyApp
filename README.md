@@ -39,5 +39,3 @@ The AI tutor feature is powered by the Google Gemini API. You must add your own 
 Open the project in Android Studio. After the Gradle sync is complete, you can build and run the application.
 
 ---
-
-All configurations are now complete. Great job on finishing the project!
