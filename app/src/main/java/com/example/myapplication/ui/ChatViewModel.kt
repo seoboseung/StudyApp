@@ -1,9 +1,11 @@
 package com.example.myapplication.ui
 
+import android.util.Log // Log import 추가
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.BuildConfig
-import com.example.myapplication.data.Message    import com.example.myapplication.data.Subject
+import com.example.myapplication.data.Message
+import com.example.myapplication.data.Subject
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,9 +33,10 @@ class ChatViewModel : ViewModel() {
             """.trimIndent()
 
         generativeModel = GenerativeModel(
-            modelName = "gemini-1.5-flash",
+            // ▼▼▼ 모델 이름을 "gemini-2.5-flash"로 수정 ▼▼▼
+            modelName = "gemini-2.5-flash",
             apiKey = BuildConfig.GEMINI_API_KEY,
-            systemInstruction = content(role = "system") { text(prompt) }
+            systemInstruction = content { text(prompt) }
         )
     }
 
@@ -47,6 +50,8 @@ class ChatViewModel : ViewModel() {
                     _messages.value += Message(aiResponse, false)
                 }
             } catch (e: Exception) {
+                // 오류 발생 시, 좀 더 자세한 원인을 파악하기 위해 로그를 추가합니다.
+                Log.e("ChatViewModel", "API Error: ", e)
                 _messages.value += Message("죄송해요, 답변을 생성하는 중 오류가 발생했어요. 다시 시도해주세요.", false)
             }
         }

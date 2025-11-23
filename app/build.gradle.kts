@@ -31,7 +31,7 @@ android {
         buildConfigField(
             type = "String",
             name = "GEMINI_API_KEY",
-            value = "\"${localProperties.getProperty("gemini.api.key")}\""
+            value = "\"${localProperties.getProperty("GEMINI_API_KEY")}\""
         )
     }
 
@@ -81,5 +81,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // 이 줄을 추가하세요.
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
+    implementation("com.google.ai.client.generativeai:generativeai:0.8.0") // 버전 업데이트
 }

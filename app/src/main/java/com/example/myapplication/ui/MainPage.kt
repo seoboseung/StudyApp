@@ -85,7 +85,12 @@ fun MainPage(
                     currentThemeMode = themeMode,
                     onThemeChange = { mode -> mainViewModel.setThemeMode(mode) },
                     onLogout = {
-                        // TODO: 로그아웃 로직 구현 (예: 로그인 화면으로 이동)
+                        navController.navigate("login") {
+                            popUpTo("main") {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
                     }
                 )
             }

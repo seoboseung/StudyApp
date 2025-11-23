@@ -33,15 +33,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import kotlinx.coroutines.delay
-
+/*
 private enum class IntroStep {
     SPLASH,
     LOGIN
-}
+}*/
 
 @Composable
 fun IntroScreens(onNavigateToMain: () -> Unit) {
-    var currentStep by remember { mutableStateOf(IntroStep.SPLASH) }
+    /*var currentStep by remember { mutableStateOf(IntroStep.SPLASH) }
 
     LaunchedEffect(Unit) {
         delay(2500)
@@ -51,12 +51,14 @@ fun IntroScreens(onNavigateToMain: () -> Unit) {
     when (currentStep) {
         IntroStep.SPLASH -> SplashScreen()
         IntroStep.LOGIN -> KakaoLoginPage(onLogin = onNavigateToMain)
-    }
+    }*/
+    KakaoLoginPage(onLogin = onNavigateToMain)
 }
 
 /**
  * 스플래시 화면 UI
  */
+/*
 @Composable
 private fun SplashScreen() {
     var isVisible by remember { mutableStateOf(false) }
@@ -95,7 +97,7 @@ private fun SplashScreen() {
             Text("당신의 수능 파트너", color = Color.White.copy(0.8f), fontSize = 16.sp)
         }
     }
-}
+}*/
 
 /**
  * 카카오 로그인 페이지 UI

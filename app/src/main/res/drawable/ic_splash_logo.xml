@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 1. 배경 (하얀색, 둥근 사각형) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" />
+            <corners android:radius="32dp" />
+        </shape>
+    </item>
+
+    <!-- 2. 아이콘 (ic_auto_awesome) -->
+    <!-- 아이콘 크기를 64dp로 줄이고 중앙에 배치하여 잘림 현상을 해결합니다. -->
+    <item
+        android:width="64dp"
+        android:height="64dp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_auto_awesome" />
+
+</layer-list>
