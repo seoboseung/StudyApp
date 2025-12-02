@@ -1,8 +1,16 @@
 package com.example.myapplication.ui
 
-// 1. 중복되거나 사용하지 않는 import 문 정리
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -11,9 +19,25 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,48 +47,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.BuildConfig
+import com.example.myapplication.data.Message
 import com.example.myapplication.data.Subject
-import com.google.ai.client.generativeai.GenerativeModel
-import com.google.ai.client.generativeai.type.content
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import com.example.myapplication.data.Message // Message 데이터 클래스 import
-import androidx.lifecycle.viewmodel.compose.viewModel // viewModel() 함수 import
 
-
-/**
- * 채팅 메시지를 표현하는 데이터 클래스.
- * 이 파일 내에서 유일하게 선언하여 관리합니다.
- */
-
-
-/**
- * 채팅 UI를 구성하는 메인 컴포저블
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatPage(
     subject: Subject,
     onBack: () -> Unit,
-    viewModel: ChatViewModel = viewModel() // ViewModel 주입
+    viewModel: ChatViewModel = viewModel()
 ) {
-    // ViewModel로부터 메시지 목록을 구독합니다.
     val messages by viewModel.messages.collectAsState()
     var inputText by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
 
-    // 화면이 처음 그려지거나 과목이 변경될 때 ViewModel의 setupModel을 호출합니다.
     LaunchedEffect(subject) {
         viewModel.setupModel(subject)
     }
 
-    // 메시지 목록이 변경될 때마다 마지막 메시지로 스크롤합니다.
     LaunchedEffect(messages) {
         if (messages.isNotEmpty()) {
             listState.animateScrollToItem(messages.lastIndex)
@@ -104,9 +105,6 @@ fun ChatPage(
     }
 }
 
-/**
- * 채팅방 상단 바 컴포저블
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ChatTopBar(subject: Subject, onBack: () -> Unit) {
@@ -126,9 +124,6 @@ private fun ChatTopBar(subject: Subject, onBack: () -> Unit) {
     )
 }
 
-/**
- * 메시지 말풍선 컴포저블
- */
 @Composable
 private fun MessageBubble(message: Message, subject: Subject) {
     val horizontalArrangement = if (message.isFromUser) Arrangement.End else Arrangement.Start
@@ -165,9 +160,6 @@ private fun MessageBubble(message: Message, subject: Subject) {
     }
 }
 
-/**
- * 하단 메시지 입력창 컴포저블
- */
 @Composable
 private fun ChatInputBar(value: String, onValueChange: (String) -> Unit, onSendClick: () -> Unit) {
     Surface(
