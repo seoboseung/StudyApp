@@ -49,7 +49,6 @@ class ChatViewModel : ViewModel() {
                     _messages.value += Message(aiResponse, false)
                 }
             } catch (e: Exception) {
-                // 오류 발생 시, 좀 더 자세한 원인을 파악하기 위해 로그를 추가합니다.
                 Log.e("ChatViewModel", "API Error: ", e)
                 _messages.value += Message("죄송해요, 답변을 생성하는 중 오류가 발생했어요. 다시 시도해주세요.", false)
             }

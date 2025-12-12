@@ -37,8 +37,6 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme(darkTheme = useDarkTheme) {
                 val navController = rememberNavController()
 
-                // --- 여기가 핵심입니다! ---
-                // NavHost의 시작점을 "login"으로 변경합니다.
                 NavHost(navController = navController, startDestination = "login") {
 
                     // 1. 로그인 화면 경로
