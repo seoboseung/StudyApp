@@ -32,7 +32,7 @@ data class ScoreRecord(
     val totalGrade: Double
 )
 
-// 샘플 과목 데이터 (React 코드 기반 변환)
+
 val subjectList = listOf(
     Subject("korean", "국어", "문학·문법·독서", Color(0xFFF43F5E), listOf(Color(0xFFF43F5E), Color(0xFFDB2777)), Icons.Default.MenuBook, "https://images.unsplash.com/photo-1712527320820-bec5fd19d69b?q=80&w=200"),
     Subject("math", "수학", "미적분·확통·기하", Color(0xFF3B82F6), listOf(Color(0xFF3B82F6), Color(0xFF4F46E5)), Icons.Default.Calculate, "https://images.unsplash.com/photo-1758685848895-e724272475d2?q=80&w=200"),
