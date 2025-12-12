@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22" // 이 줄을 추가하세요.
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
 }
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
@@ -79,7 +79,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // 이 줄을 추가하세요.
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("com.google.ai.client.generativeai:generativeai:0.8.0") // 버전 업데이트
+    implementation("com.google.ai.client.generativeai:generativeai:0.8.0")
 }

@@ -1,6 +1,6 @@
 package com.example.myapplication.ui
 
-import android.util.Log // Log import 추가
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.BuildConfig
@@ -17,7 +17,7 @@ class ChatViewModel : ViewModel() {
     private val _messages = MutableStateFlow<List<Message>>(emptyList())
     val messages = _messages.asStateFlow()
 
-    private var generativeModel: GenerativeModel? = null
+    var generativeModel: GenerativeModel? = null
 
     fun setupModel(subject: Subject) {
         _messages.value = listOf(Message("안녕하세요! ${subject.name} 과목에 대해 무엇이든 물어보세요.", false))
@@ -30,7 +30,7 @@ class ChatViewModel : ViewModel() {
                 3. 존댓말을 사용하며, 학생을 격려하는 따뜻한 말투를 유지합니다.
                 4. 모든 답변은 한국어로만 제공합니다.
                 5. 답변은 핵심만 간결하게 요약하여 3~5문장 이내로 끝냅니다.
-            """.trimIndent()
+            """.trimIndent() //들여쓰기
 
         generativeModel = GenerativeModel(
             modelName = "gemini-2.5-flash", // 모델 이름 수정

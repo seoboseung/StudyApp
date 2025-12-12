@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- 1. 앱의 기본 테마 -->
     <style name="Theme.MyApplication" parent="android:Theme.Material.Light.NoActionBar">
-        <!-- 앱 전반에 사용될 다른 속성들을 이곳에 추가할 수 있습니다. -->
     </style>
-
-    <!-- 2. 스플래시 화면 전용 테마 (새로 추가) -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <!-- 스플래시 화면 배경색 -->
         <item name="windowSplashScreenBackground">#06B6D4</item>
-        <!-- 스플래시 화면 아이콘 -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
-        <!-- 스플래시 화면이 끝난 후 적용될 테마 -->
         <item name="postSplashScreenTheme">@style/Theme.MyApplication</item>
     </style>
-
 </resources>
