@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- ▼▼▼ 1. <application> 태그의 테마를 스플래시 테마로 변경 ▼▼▼ -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Starting">
 
-        <!-- ▼▼▼ 2. <activity> 태그의 테마 속성을 제거합니다 ▼▼▼ -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -43,8 +43,7 @@ class MainActivity : ComponentActivity() {
                     composable("login") {
                         IntroScreens(
                             onNavigateToMain = {
-                                // 로그인 성공 시 메인 화면으로 이동하고,
-                                // 로그인 화면은 스택에서 제거합니다.
+                                //로그인 화면 스택 제거
                                 navController.navigate("main") {
                                     popUpTo("login") {
                                         inclusive = true
