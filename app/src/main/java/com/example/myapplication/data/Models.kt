@@ -5,15 +5,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 
 // 과목 데이터 모델
 data class Subject(
     val id: String,
     val name: String,
     val description: String,
-    val color: Color, // 아이콘 배경용 단색
-    val gradientBrush: List<Color>, // 그라데이션용 색상 리스트
+    val color: Color,
+    val gradientBrush: List<Color>,
     val icon: ImageVector,
     val imageUrl: String
 )
