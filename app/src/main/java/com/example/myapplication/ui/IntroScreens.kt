@@ -22,10 +22,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -43,25 +40,27 @@ import com.example.myapplication.R
 @Composable
 fun IntroScreens(onNavigateToMain: () -> Unit) {
     val navController = rememberNavController()
+    val introViewModel: IntroViewModel = viewModel()
     NavHost(navController = navController, startDestination = "login") {
         composable("login") {
             LoginScreen(
                 onNavigateToMain = onNavigateToMain,
-                onNavigateToSignUp = { navController.navigate("signup") }
+                onNavigateToSignUp = { navController.navigate("signup") },
+                viewModel = introViewModel
             )
         }
         composable("signup") {
-            SignUpScreen(onNavigateToLogin = { navController.popBackStack() })
+            SignUpScreen(
+                onNavigateToLogin = { navController.popBackStack() },
+                viewModel = introViewModel
+            )
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit) {
-    var id by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
+fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit, viewModel: IntroViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -82,11 +81,12 @@ fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(48.dp))
             OutlinedTextField(
-                value = id,
-                onValueChange = { id = it },
+                value = viewModel.id,
+                onValueChange = { viewModel.onIdChange(it) },
                 label = { Text("아이디 입력") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
+                singleLine = true,
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.White,
                     unfocusedIndicatorColor = Color.White,
@@ -96,11 +96,12 @@ fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password,
+                onValueChange = { viewModel.onPasswordChange(it) },
                 label = { Text("비밀번호 입력") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
+                singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.White,
@@ -156,11 +157,7 @@ fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(onNavigateToLogin: () -> Unit) {
-    var id by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-
+fun SignUpScreen(onNavigateToLogin: () -> Unit, viewModel: IntroViewModel) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -181,11 +178,12 @@ fun SignUpScreen(onNavigateToLogin: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(48.dp))
             OutlinedTextField(
-                value = id,
-                onValueChange = { id = it },
+                value = viewModel.id,
+                onValueChange = { viewModel.onIdChange(it) },
                 label = { Text("아이디 입력") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
+                singleLine = true,
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.White,
                     unfocusedIndicatorColor = Color.White,
@@ -195,11 +193,12 @@ fun SignUpScreen(onNavigateToLogin: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = viewModel.password,
+                onValueChange = { viewModel.onPasswordChange(it) },
                 label = { Text("비밀번호 입력") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
+                singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.White,
@@ -210,12 +209,14 @@ fun SignUpScreen(onNavigateToLogin: () -> Unit) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
+                value = viewModel.confirmPassword,
+                onValueChange = { viewModel.onConfirmPasswordChange(it) },
                 label = { Text("비밀번호 확인") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
+                singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
+                isError = viewModel.isPasswordMismatch,
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.White,
                     unfocusedIndicatorColor = Color.White,
@@ -223,6 +224,13 @@ fun SignUpScreen(onNavigateToLogin: () -> Unit) {
                     unfocusedContainerColor = Color.White.copy(alpha = 0.3f)
                 )
             )
+            if (viewModel.isPasswordMismatch) {
+                Text(
+                    text = "비밀번호가 일치하지 않습니다.",
+                    color = Color.Red,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(24.dp))
             Button(
                 onClick = onNavigateToLogin,
@@ -230,6 +238,7 @@ fun SignUpScreen(onNavigateToLogin: () -> Unit) {
                     .fillMaxWidth()
                     .height(54.dp),
                 shape = RoundedCornerShape(24.dp),
+                enabled = viewModel.isSignUpEnabled,
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White)
             ) {
                 Text(text = "회원가입", color = Color.Black, fontSize = 18.sp)
