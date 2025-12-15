@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController = navController, startDestination = "login") {
 
-                    // 1. 로그인 화면 경로
+                    // 로그인 화면 경로
                     composable("login") {
                         IntroScreens(
                             onNavigateToMain = {
@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    // 2. 메인 화면 경로
+                    // 메인 화면 경로
                     composable("main") {
                         MainPage(
                             navController = navController,
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    // 3. 채팅방 경로
+                    // 채팅방 경로
                     composable("chat/{subjectId}") { backStackEntry ->
                         val subjectId = backStackEntry.arguments?.getString("subjectId")
                         val subject = subjectList.find { it.id == subjectId }
@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    // 4. 성적 기록 경로
+                    // 성적 기록 경로
                     composable("scoreRecord") {
                         ScoreRecordPage(
                             onBack = {
