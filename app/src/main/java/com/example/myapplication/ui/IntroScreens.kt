@@ -58,7 +58,6 @@ fun IntroScreens(onNavigateToMain: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit, viewModel: IntroViewModel) {
     Box(
@@ -155,7 +154,6 @@ fun LoginScreen(onNavigateToMain: () -> Unit, onNavigateToSignUp: () -> Unit, vi
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreen(onNavigateToLogin: () -> Unit, viewModel: IntroViewModel) {
     Box(

@@ -51,7 +51,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.Message
 import com.example.myapplication.data.Subject
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun ChatPage(
     subject: Subject,
